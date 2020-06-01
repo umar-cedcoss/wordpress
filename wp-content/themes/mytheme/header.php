@@ -29,9 +29,9 @@ wp_head();
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<div class="custom-logo"><?php the_custom_logo(); ?></div>
 <div class="container">
-<a class="navbar-brand" href="#">Start Bootstrap</a>
+<img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->heigth; ?>" width="<?php echo get_custom_header()->width; ?>" alt="">
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>

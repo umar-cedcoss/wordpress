@@ -30,12 +30,13 @@ get_header();
 if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
+		get_template_part( 'template-parts/content', get_post_format() );
 		?>
 
 <!-- Blog Post -->
 
 <div class="card mb-4">
-	<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+		<?php the_post_thumbnail( 'category-thumb' ); ?>
 	<div class="card-body">
 		<a href="<?php the_permalink(); ?>"><h2 class="card-title"><?php the_title(); ?></h2></a>
 		<p class="card-text"><?php the_content(); ?></p>

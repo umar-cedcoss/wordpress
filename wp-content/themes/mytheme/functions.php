@@ -55,4 +55,57 @@ if ( function_exists( 'add_theme_support' ) ) {
     add_image_size( 'category-thumb', 300, 9999 ); //300 pixels wide (and unlimited height)
 }
 
+/**
+ * Setup the WordPress core custom background feature.
+ *
+ * Use add_theme_support to register support for WordPress 3.4+
+ * as well as provide backward compatibility for previous versions.
+ * Use feature detection of wp_get_theme() which was introduced
+ * in WordPress 3.4. *
+ * Hooks into the after_setup_theme action.
+ */
+$args = array(
+	'default-color' => '000000',
+	'default-image' => '',
+);
+add_theme_support( 'custom-background', $args );
 
+
+/**
+ * This is function description for register_dynamic_menu().
+ *
+ * @package mytheme
+ */
+$args = array(
+	'width'         => 980,
+	'height'        => 60,
+	'default-image' => '',
+);
+add_theme_support( 'custom-header', $args );
+
+function theme_prefix_setup() {
+	
+	add_theme_support( 'custom-logo', array(
+		'height'      => 100,
+		'width'       => 400,
+		'flex-width' => true,
+		'flex-width'  => true,
+		'header-text' => array( 'site-title', 'site-description' ),
+	) );
+
+}
+add_action( 'after_setup_theme', 'theme_prefix_setup' );
+
+add_theme_support( 'title-tag' );
+
+add_theme_support('post-formats', array (
+	'aside',
+	'image',
+	'video',
+	'quote',
+	'link',
+	'gallery',
+	'status',
+	'audio',
+	'chat',
+) );
