@@ -46,6 +46,7 @@ function register_dynamic_menu() {
 	// Executing register with add_action hook.
 
 add_action( 'init', 'register_dynamic_menu' );
+
 if ( function_exists( 'add_theme_support' ) ) { 
     add_theme_support( 'post-thumbnails' );
     set_post_thumbnail_size( 150, 150, true ); // default Post Thumbnail dimensions (cropped)
@@ -64,11 +65,22 @@ if ( function_exists( 'add_theme_support' ) ) {
  * in WordPress 3.4. *
  * Hooks into the after_setup_theme action.
  */
-$args = array(
-	'default-color' => '000000',
-	'default-image' => '',
-);
-add_theme_support( 'custom-background', $args );
+function shape_register_custom_background() {
+	$args = array(
+		'default-color' => 'e9e0d1',
+	);
+
+	$args = apply_filters( 'shape_custom_background_args', $args );
+
+	if ( function_exists( 'wp_get_theme' ) ) {
+		add_theme_support( 'custom-background', $args );
+	} else {
+		define( 'BACKGROUND_COLOR', $args['default-color'] );
+		define( 'BACKGROUND_IMAGE', $args['default-image'] );
+		add_custom_background();
+	}
+}
+add_action( 'after_setup_theme', 'shape_register_custom_background' );
 
 
 /**
@@ -84,7 +96,7 @@ $args = array(
 add_theme_support( 'custom-header', $args );
 
 function theme_prefix_setup() {
-	
+
 	add_theme_support( 'custom-logo', array(
 		'height'      => 100,
 		'width'       => 400,
@@ -97,6 +109,55 @@ function theme_prefix_setup() {
 add_action( 'after_setup_theme', 'theme_prefix_setup' );
 
 add_theme_support( 'title-tag' );
+
+/**
+ * condition to check front page
+ *
+ * @return void
+ */
+function checkfront() {
+	if ( is_front_page() ) {
+		echo 'This is the main page';
+	} else {
+		echo 'This is not the main page';
+	}
+}
+/**
+ * condition to check home page
+ *
+ * @return void
+ */
+function checkhome() {
+	if ( is_home() ) {
+		echo 'this is home page';
+	} else {
+		echo 'this is not home page';
+	}
+}
+
+function access_user() {
+	$user     = wp_get_current_user();
+	$my_array = json_decode( json_encode( $user ), true );
+	$role     = $my_array['roles'][0];
+	if ( empty( $role ) ) {
+		$role = 'guest';
+	}
+
+	if ( is_page( '92' ) && $role === 'subscriber' ) {
+		$redirect = true;
+	}
+	if ( is_page( '92' ) && $role === 'guest' ) {
+		$redirect = true;
+	}
+
+	if ( is_page( '95' ) && $role === 'guest' ) {
+		$redirect = true;
+	}
+	if ( $redirect ) {
+		wp_redirect( esc_url( home_url() ) );
+	}
+}
+add_action( 'template_redirect', 'access_userckpage' );
 
 add_theme_support('post-formats', array (
 	'aside',
