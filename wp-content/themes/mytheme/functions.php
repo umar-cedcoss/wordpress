@@ -143,14 +143,14 @@ function access_user() {
 		$role = 'guest';
 	}
 
-	if ( is_page( '92' ) && $role === 'subscriber' ) {
+	if ( is_page( '34' ) && $role === 'subscriber' ) {
 		$redirect = true;
 	}
-	if ( is_page( '92' ) && $role === 'guest' ) {
+	if ( is_page( '34' ) && $role === 'guest' ) {
 		$redirect = true;
 	}
 
-	if ( is_page( '95' ) && $role === 'guest' ) {
+	if ( is_page( '43' ) && $role === 'guest' ) {
 		$redirect = true;
 	}
 	if ( $redirect ) {
