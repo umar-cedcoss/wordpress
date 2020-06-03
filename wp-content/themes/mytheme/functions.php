@@ -135,7 +135,7 @@ function checkhome() {
 	}
 }
 
-function access_user() {
+function user-access() {
 	$user     = wp_get_current_user();
 	$my_array = json_decode( json_encode( $user ), true );
 	$role     = $my_array['roles'][0];
@@ -157,7 +157,7 @@ function access_user() {
 		wp_redirect( esc_url( home_url() ) );
 	}
 }
-add_action( 'template_redirect', 'access_userckpage' );
+add_action( 'template_redirect', 'user-access' );
 
 add_theme_support('post-formats', array (
 	'aside',
